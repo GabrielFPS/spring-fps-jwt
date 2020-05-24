@@ -7,9 +7,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fps.springboot.app.auth.filter.JWTAuthenticationFilter;
+import com.fps.springboot.app.auth.filter.JWTAuthorizationFIlter;
 import com.fps.springboot.app.auth.handler.LoginSuccessHandler;
+import com.fps.springboot.app.auth.service.JWTService;
 import com.fps.springboot.app.models.service.UserService;
 
 
@@ -17,12 +21,12 @@ import com.fps.springboot.app.models.service.UserService;
 @EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true)
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Autowired
-	private LoginSuccessHandler successHandler;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JWTService jwtService;
 	
 	@Autowired
 	private UserService userDetailsService;
@@ -32,6 +36,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**").permitAll()
 		.anyRequest().authenticated()
+		/*
+		ESTO ES PARA FORMULARIO
 		.and()
 		    .formLogin()
 		        .successHandler(successHandler)
@@ -40,7 +46,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 		.logout().permitAll()
 		.and()
-		.exceptionHandling().accessDeniedPage("/error_403");
+		
+		.exceptionHandling().accessDeniedPage("/error_403")
+		*/
+		.and()
+		.addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtService))
+		.addFilter(new JWTAuthorizationFIlter(authenticationManager(),jwtService))
+		.csrf().disable()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		;
 
 	}
 

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.SessionFlashMapManager;
 
 @Component
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
-
+	// esto es para cuando se usa form
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
@@ -23,7 +23,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 		
 		FlashMap flashMap = new FlashMap();
 		
-		flashMap.put("success", "Hola " +authentication.getName()+ ", haz iniciado sesión con éxito!");
+		flashMap.put("success", "Bienvenido " +authentication.getName()+ ", haz iniciado sesión con éxito!");
 		
 		flashMapManager.saveOutputFlashMap(flashMap, request, response);
 		
