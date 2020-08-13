@@ -16,6 +16,7 @@ public class SpringFpsTaskcardApplication implements CommandLineRunner {
 		SpringApplication.run(SpringFpsTaskcardApplication.class, args);
 	}
 	
+
 	@Override
 	public void run(String... args) throws Exception {
 		//para crear el import con llave encriptada bcrypt
@@ -26,5 +27,6 @@ public class SpringFpsTaskcardApplication implements CommandLineRunner {
 			System.out.println(bcryptPassword);
 		}
 	}
+	
 
 }
