@@ -31,7 +31,6 @@ import com.fps.springboot.app.models.service.ClienteServiceImp;
 import com.fps.springboot.app.models.entity.Cliente;
 
 
-@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api")
 public class ClienteController implements Serializable{

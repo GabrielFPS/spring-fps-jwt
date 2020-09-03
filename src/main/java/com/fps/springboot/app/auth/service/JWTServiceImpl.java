@@ -25,7 +25,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTServiceImpl implements JWTService {
 
 	public static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-	public static final long EXPIRATION_DATE = 14000000L;
+	public static final long EXPIRATION_DATE = 28800L;
 	public static final String TOKEN_PREFIX= "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	

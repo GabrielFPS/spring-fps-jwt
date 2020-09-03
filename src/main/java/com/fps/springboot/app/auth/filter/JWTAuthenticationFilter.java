@@ -106,7 +106,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
 		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("mensaje", "Error de autenticacion: username o password incorrecto!");
+		body.put("mensaje", "Error de autenticacion: Usuario o Contraseña incorrecto!");
 		body.put("error",failed.getMessage());
 		
 		
